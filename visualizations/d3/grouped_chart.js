@@ -33,10 +33,10 @@
             .append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
         
-        // Color scale for gender
+        // Color scale for gender (colorblind-safe palette)
         const colorScale = d3.scaleOrdinal()
             .domain(['Male', 'Female', 'Other'])
-            .range(['#4a90e2', '#e24a90', '#90e24a']);
+            .range(['#0072B2', '#E69F00', '#009E73']);
         
         // Load data
         d3.csv('digital_diet_mental_health.csv')

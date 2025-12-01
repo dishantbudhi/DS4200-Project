@@ -41,10 +41,13 @@ Our project includes 5 distinct visualizations, each exploring different aspects
    - Tooltips allow viewers to hover and inspect specific sleep quality, screen time, and sleep duration values
    - Key takeaway: There is no strong linear relationship—sleep duration varies widely across all screen-time levels. However, lower sleep quality appears slightly more common among heavier screen users
 
-3. **Visualization 3 — Depression Score vs Social Media Usage (D3)**: Interactive Dot Plot
-   - Hover interaction reveals detailed user data: depression score, social media hours, and location
-   - Interactive legend allows viewers to toggle different locations on and off
-   - Key takeaway: Higher social media usage generally corresponds with higher depression scores, especially among urban participants
+3. **Visualization 3 — Average Depression Score by Social Media Usage and Location (D3)**: Interactive Grouped Bar Chart with Error Bars
+   - Grouped bar chart showing average depression scores across social media usage bins (0-2, 2-4, 4-6, 6-8, 8+ hours), grouped by location type
+   - Error bars display standard deviation to show variability within each group
+   - Colorblind-friendly design using Okabe-Ito color palette (blue, orange, green) with pattern overlays for additional differentiation
+   - Interactive location filter allows viewers to focus on specific location types
+   - Hover tooltips reveal detailed statistics including sample size and standard deviation
+   - Key takeaway: Higher social media usage generally corresponds with higher depression scores across all location types, with urban participants showing the most pronounced increases at higher usage levels
 
 4. **Visualization 4 — Heatmap (Altair)**: Screen Time vs Mental Health Score Distribution (With Tooltip)
    - Ideal for showing density patterns

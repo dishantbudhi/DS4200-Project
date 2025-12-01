@@ -33,7 +33,7 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                 "type": "ordinal",
                 "scale": {
                     "domain": genders,
-                    "range": ["#4a90e2", "#e24a90", "#90e24a"]
+                    "range": ["#0072B2", "#E69F00", "#009E73"]
                 },
                 "legend": null
             },
