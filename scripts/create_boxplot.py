@@ -50,12 +50,12 @@ chart = alt.Chart(avg_screen_time).mark_bar().encode(
 )
 
 # Save as HTML
-chart.save('visualizations/altair/bar_chart.html')
+chart.save('visualizations/altair/boxplot.html')
 
 # Also save the JSON spec for embedding
 chart_json = chart.to_json()
-with open('visualizations/altair/bar_chart.json', 'w') as f:
+with open('visualizations/altair/boxplot.json', 'w') as f:
     f.write(chart_json)
 
-print("Bar chart created successfully!")
+print("Boxplot created successfully!")
 

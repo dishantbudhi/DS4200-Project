@@ -20,21 +20,27 @@
         <section class="intro">
             <h2>Project Overview</h2>
             <p>
-                In today's digital age, screen time has become an integral part of daily life, especially for teenagers and young adults. 
-                This project explores the relationship between screen time patterns and mental health outcomes across different demographic groups. 
-                Through interactive visualizations, we examine how factors like age, gender, location, and device usage relate to anxiety, depression, 
-                and overall mental well-being.
+                Our project explores how screen time affects mental health across different demographics and environments. Prior research highlights strong links between high screen exposure and anxiety or depression symptoms in adolescents, so our goal was to examine these patterns in a real dataset.
             </p>
+            <p>
+                We used a Kaggle dataset with 2,001 participants and 25 attributes, including screen time, social media use, sleep quality, mental health scores, gender, and location.
+            </p>
+            <p>
+                Our key tasks were:
+            </p>
+            <ul>
+                <li>Identify demographic patterns in screen time and mental health.</li>
+                <li>Analyze behavioral relationships such as screen time vs. sleep or depression.</li>
+                <li>Compare mental health outcomes across environments (urban, suburban, rural).</li>
+            </ul>
         </section>
 
         <section class="data-intro">
             <h2>About the Data</h2>
             <p>
-                Our dataset contains <strong>2,000 observations</strong> with <strong>25 features</strong>, sourced from Kaggle. 
-                The data includes demographic information (age, gender, location type), detailed screen time metrics across different devices 
-                (phone, laptop, tablet, TV) and activities (social media, work, entertainment, gaming), as well as mental health indicators 
-                (anxiety scores, depression scores, mental health composite score), and lifestyle factors (sleep quality, physical activity, 
-                mindfulness practices). The dataset provides a comprehensive view of how digital habits intersect with mental well-being.
+                Our dataset contains <strong>2,001 participants</strong> with <strong>25 attributes</strong>, sourced from Kaggle. 
+                The data includes screen time, social media use, sleep quality, mental health scores, gender, and location. 
+                The dataset provides a comprehensive view of how digital habits intersect with mental well-being.
             </p>
             <p>
                 <strong>Data Source:</strong> <a href="https://www.kaggle.com/datasets/khushikyad001/impact-of-screen-time-on-mental-health/data" target="_blank">Kaggle - Impact of Screen Time on Mental Health</a>
@@ -67,11 +73,7 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    This box plot reveals gender differences in screen time patterns, showing not just average usage but the 
-                    full distribution including variability and outliers. The visualization helps identify whether certain gender 
-                    groups have higher median screen time, greater variability, or more extreme usage patterns. Understanding 
-                    these gender-specific patterns is crucial for developing targeted digital wellness interventions that account 
-                    for different usage behaviors across gender categories.
+                    All gender groups center around 6 hours of screen time, but females show more upper-end outliers—indicating slightly wider variability.
                 </p>
             </div>
         </section>
@@ -83,12 +85,7 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    This scatter plot explores the relationship between daily screen time and sleep duration, with color and size 
-                    encoding sleep quality. The visualization reveals whether increased screen time correlates with reduced sleep 
-                    duration or poorer sleep quality. Points are colored by sleep quality (darker = better quality) and sized by 
-                    sleep quality as well, making it easy to identify patterns where high screen time may be impacting sleep. 
-                    This relationship is critical because sleep disruption is a known pathway through which screen time can affect 
-                    mental health.
+                    There is no strong linear relationship—sleep duration varies widely across all screen-time levels. However, lower sleep quality appears slightly more common among heavier screen users.
                 </p>
             </div>
         </section>
@@ -109,13 +106,7 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    This interactive scatter plot directly examines the relationship between social media usage and depression scores, 
-                    which is a key concern in digital mental health research. Points are color-coded by location type, allowing 
-                    you to explore whether the social media-depression relationship varies across urban, suburban, and rural contexts. 
-                    Use the location filter to isolate specific populations, and hover over points to see individual demographics. 
-                    The brushing tool lets you select specific regions to examine clusters or outliers. This visualization helps 
-                    identify whether social media usage shows a dose-response relationship with depression and whether contextual 
-                    factors like location moderate this relationship.
+                    Higher social media usage generally corresponds with higher depression scores, especially among urban participants. This supports prior research showing that high-intensity digital environments can contribute to anxiety and mood disturbances.
                 </p>
             </div>
         </section>
@@ -127,13 +118,7 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    This heatmap provides a comprehensive view of how screen time ranges map to mental health score ranges across 
-                    the entire dataset. Darker blue cells indicate more people fall into that combination, revealing population-level 
-                    patterns. The visualization helps identify critical thresholds - for example, whether screen time above 8 hours 
-                    consistently associates with lower mental health scores (0-30 range), or if moderate screen time (4-6 hours) 
-                    correlates with better mental health outcomes (70-100 range). Click on cells to highlight and examine specific 
-                    combinations. This bivariate analysis helps identify optimal screen time ranges and concerning combinations that 
-                    may require intervention.
+                    The highest concentration of participants falls between 4–8 hours of screen time and moderate mental health scores. Nothing in the heatmap suggests that extreme screen time directly predicts very low or very high mental health scores—indicating a more complex relationship.
                 </p>
             </div>
         </section>
@@ -159,59 +144,33 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    This grouped bar chart examines how mental health scores vary across the intersection of location type and gender, 
-                    revealing important demographic and contextual patterns. The visualization helps identify whether certain 
-                    location-gender combinations show systematically better or worse mental health outcomes, which could indicate 
-                    the influence of environmental factors, social support networks, or access to resources. Use the gender filter 
-                    to examine patterns within specific groups, and the sort function to identify which combinations have the highest 
-                    or lowest scores. These insights are crucial for developing contextually appropriate mental health interventions 
-                    that account for both demographic and geographic factors.
+                    Overall mental health scores are fairly consistent, ranging from about 49 to 51 across all regions and genders. There is a slight dip in the urban male group, but the differences are small—suggesting location alone doesn't strongly determine mental well-being.
                 </p>
             </div>
         </section>
 
         <section class="summary">
             <h2>Summary of Findings</h2>
-            <h3>Key Conclusions</h3>
-            <ol>
-                <li>
-                    <strong>Gender Differences in Screen Time:</strong> Our analysis reveals distinct screen time patterns across gender categories, 
-                    with varying levels of usage, variability, and extreme cases. These gender-specific patterns suggest that digital wellness 
-                    interventions should be tailored to account for different usage behaviors and risk factors across gender groups.
-                </li>
-                <li>
-                    <strong>Screen Time and Sleep Disruption:</strong> The relationship between screen time and sleep duration/quality emerges as a 
-                    critical pathway through which digital habits impact mental health. Higher screen time correlates with reduced sleep duration and 
-                    poorer sleep quality, which in turn can negatively affect mental well-being. This highlights the importance of sleep hygiene 
-                    in digital wellness programs.
-                </li>
-                <li>
-                    <strong>Social Media's Specific Impact:</strong> Social media usage shows a particularly strong relationship with depression scores, 
-                    more so than general screen time. This suggests that the content and social comparison aspects of social media may be more 
-                    harmful than passive screen consumption. The relationship varies by location context, indicating that environmental factors 
-                    may moderate social media's mental health impacts.
-                </li>
-                <li>
-                    <strong>Critical Thresholds Identified:</strong> The heatmap analysis reveals specific screen time ranges that correlate with 
-                    better or worse mental health outcomes. Moderate screen time (4-6 hours) appears to associate with better mental health scores, 
-                    while excessive usage (10+ hours) consistently correlates with lower mental health scores, suggesting actionable thresholds 
-                    for intervention.
-                </li>
-                <li>
-                    <strong>Intersectional Patterns:</strong> Mental health outcomes vary significantly across the intersection of location type 
-                    and gender, revealing that both demographic and contextual factors matter. Certain location-gender combinations show systematically 
-                    better or worse outcomes, indicating the need for contextually appropriate interventions that account for both individual 
-                    characteristics and environmental factors.
-                </li>
-            </ol>
+            <h3>What We Learned — Project Conclusions</h3>
+            <p>
+                Across our five visualizations, several patterns emerged:
+            </p>
+            <ul>
+                <li>Screen time is relatively similar across genders.</li>
+                <li>Social media usage has a stronger relationship to depression scores than general screen time.</li>
+                <li>Sleep duration is highly varied, and while screen time may influence sleep quality slightly, the effect is not large.</li>
+                <li>Environmental differences exist but are subtle, with urban groups showing slightly higher depression indicators.</li>
+                <li>Most participants fall into moderate mental-health ranges, even at higher screen-time levels.</li>
+            </ul>
+            <p>
+                We also learned how important it is to match visualization type to the structure of the data—boxplots for distribution, scatterplots for continuous relationships, heatmaps for density, and interactive category charts for comparison.
+            </p>
+            <p>
+                Overall, screen time does play a role in mental health, but it's one factor among many. Social media behavior, sleep quality, and environment all contribute to the bigger picture.
+            </p>
             <h3>Future Directions</h3>
             <p>
-                Future research could explore longitudinal data to establish causal relationships and track changes over time. Investigating the 
-                role of specific social media platforms and content types would provide more granular insights. Research on screen time timing 
-                (e.g., evening usage, before-bed screen exposure) could reveal additional pathways of impact. Exploring protective factors like 
-                mindfulness practices, physical activity, and social support in greater detail would help identify resilience factors. Additionally, 
-                qualitative research could provide deeper insights into how individuals experience and manage their digital habits, complementing 
-                the quantitative patterns identified here.
+                Future research could incorporate longitudinal tracking, device-specific usage, or predictive modeling.
             </p>
         </section>
 
@@ -221,10 +180,10 @@
     </div>
 
     <!-- Load visualization scripts -->
-    <script src="visualizations/altair/bar_chart.js"></script>
-    <script src="visualizations/altair/pie_chart.js"></script>
-    <script src="visualizations/altair/heatmap.js"></script>
+    <script src="visualizations/altair/boxplot.js"></script>
+    <script src="visualizations/altair/scatterplot_sleep.js"></script>
     <script src="visualizations/d3/scatter_plot.js"></script>
+    <script src="visualizations/altair/heatmap.js"></script>
     <script src="visualizations/d3/grouped_chart.js"></script>
     <script>
         // Debug: Check if scripts loaded

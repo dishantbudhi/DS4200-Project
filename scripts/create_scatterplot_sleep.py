@@ -53,12 +53,12 @@ chart = (pie + text).add_params(selection).encode(
 )
 
 # Save as HTML
-chart.save('visualizations/altair/pie_chart.html')
+chart.save('visualizations/altair/scatterplot_sleep.html')
 
 # Also save the JSON spec
 chart_json = chart.to_json()
-with open('visualizations/altair/pie_chart.json', 'w') as f:
+with open('visualizations/altair/scatterplot_sleep.json', 'w') as f:
     f.write(chart_json)
 
-print("Pie chart created successfully!")
+print("Scatterplot sleep chart created successfully!")
 
