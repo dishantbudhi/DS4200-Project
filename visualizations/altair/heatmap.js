@@ -100,7 +100,10 @@
                     },
                     "width": 500,
                     "height": 400,
-                    "title": "Screen Time vs Mental Health Score Distribution"
+                    "title": {
+                        "text": "Screen Time and Mental Health Distribution",
+                        "subtitle": "Distribution of participants across screen time and mental health score ranges"
+                    }
                 };
                 
                 // Embed the visualization

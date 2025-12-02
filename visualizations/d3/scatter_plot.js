@@ -11,7 +11,7 @@
     
     function init() {
         // Set up dimensions and margins (increased for less condensed layout)
-        const margin = { top: 60, bottom: 100, left: 90, right: 180 };
+        const margin = { top: 80, bottom: 100, left: 90, right: 180 };
         const width = 900 - margin.left - margin.right;
         const height = 550 - margin.top - margin.bottom;
         
@@ -158,6 +158,25 @@
                     .domain([0, d3.max(groupedData, d => d.max) * 1.1])
                     .range([height, 0])
                     .nice();
+                
+                // Add title and subtitle
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', -20)
+                    .attr('fill', 'black')
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '18px')
+                    .style('font-weight', 'bold')
+                    .text('Depression Scores by Social Media Usage and Location');
+                
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', -5)
+                    .attr('fill', '#666')
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('font-style', 'italic')
+                    .text('Average weekly depression scores grouped by social media usage bins and location type');
                 
                 // Create axes
                 const xAxis = d3.axisBottom(x0Scale);

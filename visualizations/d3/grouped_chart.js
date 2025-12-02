@@ -11,7 +11,7 @@
     
     function init() {
         // Set up dimensions and margins
-        const margin = { top: 50, bottom: 80, left: 80, right: 150 };
+        const margin = { top: 70, bottom: 80, left: 80, right: 150 };
         const width = 800 - margin.left - margin.right;
         const height = 500 - margin.top - margin.bottom;
         
@@ -101,6 +101,25 @@
                     .range([height, 0])
                     .nice();
                 
+                // Add title and subtitle
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', -20)
+                    .attr('fill', 'black')
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '18px')
+                    .style('font-weight', 'bold')
+                    .text('Mental Health by Location and Gender');
+                
+                svg.append('text')
+                    .attr('x', width / 2)
+                    .attr('y', -5)
+                    .attr('fill', '#666')
+                    .style('text-anchor', 'middle')
+                    .style('font-size', '12px')
+                    .style('font-style', 'italic')
+                    .text('Average mental health scores grouped by location type and gender');
+                
                 // Create axes
                 const xAxis = d3.axisBottom(x0Scale);
                 const yAxis = d3.axisLeft(yScale);
@@ -152,6 +171,8 @@
                         .attr('height', d => height - currentYScale(d.score))
                         .attr('fill', d => colorScale(d.gender))
                         .attr('opacity', 0.8)
+                        .attr('stroke', '#333')
+                        .attr('stroke-width', 1)
                         .on('mouseover', function(event, d) {
                             d3.select(this)
                                 .attr('opacity', 1)
@@ -174,7 +195,8 @@
                         .on('mouseout', function() {
                             d3.select(this)
                                 .attr('opacity', 0.8)
-                                .attr('stroke', 'none');
+                                .attr('stroke', '#333')
+                                .attr('stroke-width', 1);
                             
                             d3.selectAll('.tooltip').remove();
                         });
@@ -204,28 +226,31 @@
                 
                 // Add legend (positioned to avoid overlap)
                 const legend = svg.append('g')
-                    .attr('transform', `translate(${width + 20}, 50)`);
+                    .attr('transform', `translate(${width + 30}, 60)`);
                 
                 legend.append('text')
                     .attr('x', 0)
                     .attr('y', 0)
-                    .style('font-size', '14px')
+                    .style('font-size', '15px')
                     .style('font-weight', 'bold')
                     .text('Gender');
                 
                 genders.forEach((d, i) => {
                     const legendItem = legend.append('g')
-                        .attr('transform', `translate(0, ${(i + 1) * 25})`);
+                        .attr('transform', `translate(0, ${(i + 1) * 35})`);
                     
+                    // Add colored rectangle (larger)
                     legendItem.append('rect')
-                        .attr('width', 15)
-                        .attr('height', 15)
-                        .attr('fill', colorScale(d));
+                        .attr('width', 24)
+                        .attr('height', 18)
+                        .attr('fill', colorScale(d))
+                        .attr('stroke', '#333')
+                        .attr('stroke-width', 1.5);
                     
                     legendItem.append('text')
-                        .attr('x', 20)
-                        .attr('y', 12)
-                        .style('font-size', '12px')
+                        .attr('x', 30)
+                        .attr('y', 14)
+                        .style('font-size', '13px')
                         .text(d);
                 });
                 
@@ -313,6 +338,8 @@
                         .attr('height', d => height - currentYScale(d.score))
                         .attr('fill', d => colorScale(d.gender))
                         .attr('opacity', 0.8)
+                        .attr('stroke', '#333')
+                        .attr('stroke-width', 1)
                         .on('mouseover', function(event, d) {
                             d3.select(this)
                                 .attr('opacity', 1)
@@ -335,7 +362,8 @@
                         .on('mouseout', function() {
                             d3.select(this)
                                 .attr('opacity', 0.8)
-                                .attr('stroke', 'none');
+                                .attr('stroke', '#333')
+                                .attr('stroke-width', 1);
                             
                             d3.selectAll('.tooltip').remove();
                         });

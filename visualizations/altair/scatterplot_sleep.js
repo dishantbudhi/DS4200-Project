@@ -49,7 +49,10 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
         },
         "width": 600,
         "height": 400,
-        "title": "Screen Time vs Sleep Duration Relationship"
+        "title": {
+            "text": "Screen Time and Sleep Duration",
+            "subtitle": "Relationship between daily screen time and sleep duration, colored by sleep quality"
+        }
     };
     
     // Embed the visualization

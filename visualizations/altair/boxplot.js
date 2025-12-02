@@ -35,12 +35,15 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                     "domain": genders,
                     "range": ["#0072B2", "#E69F00", "#009E73"]
                 },
-                "legend": null
+                "legend": { "title": "Gender" }
             }
         },
         "width": 500,
         "height": 400,
-        "title": "Screen Time Distribution by Gender"
+        "title": {
+            "text": "Screen Time Distribution by Gender",
+            "subtitle": "Distribution of daily screen time hours across gender groups"
+        }
     };
     
     // Embed the visualization
