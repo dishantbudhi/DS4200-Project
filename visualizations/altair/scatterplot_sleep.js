@@ -45,12 +45,7 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                 "type": "quantitative",
                 "scale": {"range": [30, 150]},
                 "legend": null
-            },
-            "tooltip": [
-                {"field": "Screen Time", "type": "quantitative", "format": ".1f", "title": "Screen Time (hrs)"},
-                {"field": "Sleep Duration", "type": "quantitative", "format": ".1f", "title": "Sleep (hrs)"},
-                {"field": "Sleep Quality", "type": "quantitative", "format": ".0f", "title": "Sleep Quality"}
-            ]
+            }
         },
         "width": 600,
         "height": 400,

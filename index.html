@@ -22,7 +22,7 @@
             <p>
                 Our project explores how screen time affects mental health across different demographics and environments. Prior research highlights strong links between high screen exposure and anxiety or depression symptoms in adolescents, so our goal was to examine these patterns in a real dataset.
             </p>
-            <p>
+            <p style="margin-bottom: 20px;">
                 We used a Kaggle dataset with 2,001 participants and 25 attributes, including screen time, social media use, sleep quality, mental health scores, gender, and location.
             </p>
             <p>
@@ -37,7 +37,7 @@
 
         <section class="data-intro">
             <h2>About the Data</h2>
-            <p>
+            <p style="margin-bottom: 20px;">
                 Our dataset contains <strong>2,001 participants</strong> with <strong>25 attributes</strong>, sourced from Kaggle. 
                 The data includes screen time, social media use, sleep quality, mental health scores, gender, and location. 
                 The dataset provides a comprehensive view of how digital habits intersect with mental well-being.
@@ -45,25 +45,6 @@
             <p>
                 <strong>Data Source:</strong> <a href="https://www.kaggle.com/datasets/khushikyad001/impact-of-screen-time-on-mental-health/data" target="_blank">Kaggle - Impact of Screen Time on Mental Health</a>
             </p>
-        </section>
-
-        <section class="references">
-            <h2>References</h2>
-            <ul>
-                <li>
-                    Devi, K. A., & Singh, S. K. (2023). "The Hazards of Excessive Screen Time: Impacts on Physical Health, Mental Health, and Overall Well-Being." 
-                    <em>Journal of Education and Health Promotion</em>. 
-                    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10852174/" target="_blank">PMC Article</a>
-                </li>
-                <li>
-                    Centers for Disease Control and Prevention. (2024). "Products - Data Briefs - Number 513 - October 2024." 
-                    <a href="https://www.cdc.gov/nchs/products/databriefs/db513.htm" target="_blank">CDC Data Brief</a>
-                </li>
-                <li>
-                    Yale School of Medicine. (2024). "Study Probes Connection between Excessive Screen Media Activity and Mental Health Problems in Youth." 
-                    <a href="https://medicine.yale.edu/news-article/yale-study-probes-connection-between-excessive-screen-media-activity-and-mental-health-problems-in-youth/" target="_blank">Yale News</a>
-                </li>
-            </ul>
         </section>
 
         <!-- Visualization 1: Box Plot (Altair) -->
@@ -106,7 +87,7 @@
             <div class="takeaway">
                 <h3>Key Takeaway</h3>
                 <p>
-                    Higher social media usage generally corresponds with higher depression scores across all location types, with urban participants showing the most pronounced increases at higher usage levels. Error bars show variability within each group, revealing that while the trend is consistent, individual responses vary significantly. This supports prior research showing that high-intensity digital environments can contribute to anxiety and mood disturbances, particularly in urban settings.
+                    Higher social media usage corresponds with higher depression scores across all locations, with urban participants showing the most pronounced increases. Error bars indicate variability within groups, showing consistent trends despite individual differences.
                 </p>
             </div>
         </section>
@@ -134,11 +115,6 @@
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
-                </select>
-                <label style="margin-left: 20px;">Sort by:</label>
-                <select id="sort-filter">
-                    <option value="location">Location</option>
-                    <option value="score">Mental Health Score</option>
                 </select>
             </div>
             <div class="takeaway">
@@ -189,10 +165,28 @@
             </p>
         </section>
 
+        <section class="references">
+            <h2>References</h2>
+            <ul>
+                <li>
+                    Devi, K. A., & Singh, S. K. (2023). "The Hazards of Excessive Screen Time: Impacts on Physical Health, Mental Health, and Overall Well-Being." 
+                    <em>Journal of Education and Health Promotion</em>. 
+                    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10852174/" target="_blank">PMC Article</a>
+                </li>
+                <li>
+                    Centers for Disease Control and Prevention. (2024). "Products - Data Briefs - Number 513 - October 2024." 
+                    <a href="https://www.cdc.gov/nchs/products/databriefs/db513.htm" target="_blank">CDC Data Brief</a>
+                </li>
+                <li>
+                    Yale School of Medicine. (2024). "Study Probes Connection between Excessive Screen Media Activity and Mental Health Problems in Youth." 
+                    <a href="https://medicine.yale.edu/news-article/yale-study-probes-connection-between-excessive-screen-media-activity-and-mental-health-problems-in-youth/" target="_blank">Yale News</a>
+                </li>
+            </ul>
+        </section>
+
         <footer>
-            <p>Project by: Alexandra Rosado Poma, Dishant Budhi, Justin Lee | DS 4200</p>
+            <p>Alexandra Rosado Poma, Dishant Budhi, Justin Lee | DS 4200</p>
             <p style="margin-top: 10px; font-size: 0.9em;">
-                <strong>Published Website:</strong> 
                 <a href="https://dishantbudhi.github.io/DS4200-Project/" target="_blank" style="color: #667eea;">
                     https://dishantbudhi.github.io/DS4200-Project/
                 </a>

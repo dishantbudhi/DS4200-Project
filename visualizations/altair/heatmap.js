@@ -96,12 +96,7 @@
                                 "scheme": "blues"
                             },
                             "legend": { "title": "Number of People" }
-                        },
-                        "tooltip": [
-                            {"field": "Screen Time", "type": "ordinal", "title": "Screen Time"},
-                            {"field": "Mental Health Score", "type": "ordinal", "title": "Mental Health Score"},
-                            {"field": "count", "type": "quantitative", "title": "Count", "format": ",d"}
-                        ]
+                        }
                     },
                     "width": 500,
                     "height": 400,

@@ -98,9 +98,7 @@
                 const socialMediaBins = [
                     { label: '0-2 hrs', min: 0, max: 2 },
                     { label: '2-4 hrs', min: 2, max: 4 },
-                    { label: '4-6 hrs', min: 4, max: 6 },
-                    { label: '6-8 hrs', min: 6, max: 8 },
-                    { label: '8+ hrs', min: 8, max: Infinity }
+                    { label: '4-6 hrs', min: 4, max: 6 }
                 ];
                 
                 const locations = ['Urban', 'Suburban', 'Rural'];

@@ -116,6 +116,17 @@ section h3 {
     border-left-color: #4a90e2;
 }
 
+.intro ul,
+.intro ol {
+    padding-left: 30px;
+    margin-top: 15px;
+}
+
+.intro li {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
 .references {
     background-color: #fff8e1;
     border-left-color: #ffc107;
@@ -145,6 +156,7 @@ section h3 {
     border-left-color: #8bc34a;
 }
 
+.summary ul,
 .summary ol {
     padding-left: 30px;
     margin-top: 15px;

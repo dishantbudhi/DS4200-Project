@@ -36,11 +36,7 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                     "range": ["#0072B2", "#E69F00", "#009E73"]
                 },
                 "legend": null
-            },
-            "tooltip": [
-                {"field": "Gender", "type": "ordinal"},
-                {"field": "Screen Time", "type": "quantitative", "format": ".2f"}
-            ]
+            }
         },
         "width": 500,
         "height": 400,

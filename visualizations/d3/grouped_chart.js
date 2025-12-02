@@ -146,19 +146,9 @@
                     
                     // Add rectangles
                     barGroups.append('rect')
-                        .attr('x', d => {
-                            const sortBy = d3.select('#sort-filter').node() ? d3.select('#sort-filter').node().value : 'location';
-                            if (sortBy === 'score') {
-                                return currentX0Scale(d.location + ' - ' + d.gender) || 0;
-                            } else {
-                                return (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0);
-                            }
-                        })
+                        .attr('x', d => (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0))
                         .attr('y', d => currentYScale(d.score))
-                        .attr('width', d => {
-                            const sortBy = d3.select('#sort-filter').node() ? d3.select('#sort-filter').node().value : 'location';
-                            return sortBy === 'score' ? currentX0Scale.bandwidth() : currentX1Scale.bandwidth();
-                        })
+                        .attr('width', d => currentX1Scale.bandwidth())
                         .attr('height', d => height - currentYScale(d.score))
                         .attr('fill', d => colorScale(d.gender))
                         .attr('opacity', 0.8)
@@ -192,14 +182,7 @@
                     // Add value labels
                     barGroups.append('text')
                         .attr('class', 'bar-label')
-                        .attr('x', d => {
-                            const sortBy = d3.select('#sort-filter').node() ? d3.select('#sort-filter').node().value : 'location';
-                            if (sortBy === 'score') {
-                                return (currentX0Scale(d.location + ' - ' + d.gender) || 0) + currentX0Scale.bandwidth() / 2;
-                            } else {
-                                return (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0) + currentX1Scale.bandwidth() / 2;
-                            }
-                        })
+                        .attr('x', d => (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0) + currentX1Scale.bandwidth() / 2)
                         .attr('y', d => {
                             const barHeight = height - currentYScale(d.score);
                             return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
@@ -246,7 +229,7 @@
                         .text(d);
                 });
                 
-                // Filter and sort functions
+                // Filter function
                 function updateVisualization() {
                     let data = [...groupedData];
                     
@@ -257,34 +240,20 @@
                         data = data.filter(d => d.gender === selectedGender);
                     }
                     
-                    // Sort
-                    const sortBy = d3.select('#sort-filter').node().value;
-                    console.log('Sort by:', sortBy);
+                    // Sort by location, then gender
+                    data.sort((a, b) => {
+                        const locOrder = { 'Urban': 0, 'Suburban': 1, 'Rural': 2 };
+                        if (locOrder[a.location] !== locOrder[b.location]) {
+                            return locOrder[a.location] - locOrder[b.location];
+                        }
+                        const genderOrder = { 'Male': 0, 'Female': 1, 'Other': 2 };
+                        return genderOrder[a.gender] - genderOrder[b.gender];
+                    });
                     
-                    if (sortBy === 'score') {
-                        // Sort by score descending
-                        data.sort((a, b) => b.score - a.score);
-                        // Create new domain based on sorted data
-                        const sortedLabels = data.map(d => d.location + ' - ' + d.gender);
-                        currentX0Scale = d3.scaleBand()
-                            .domain(sortedLabels)
-                            .range([0, width])
-                            .padding(0.2);
-                    } else {
-                        // Sort by location, then gender
-                        data.sort((a, b) => {
-                            const locOrder = { 'Urban': 0, 'Suburban': 1, 'Rural': 2 };
-                            if (locOrder[a.location] !== locOrder[b.location]) {
-                                return locOrder[a.location] - locOrder[b.location];
-                            }
-                            const genderOrder = { 'Male': 0, 'Female': 1, 'Other': 2 };
-                            return genderOrder[a.gender] - genderOrder[b.gender];
-                        });
-                        currentX0Scale = d3.scaleBand()
-                            .domain(locations)
-                            .range([0, width])
-                            .padding(0.2);
-                    }
+                    currentX0Scale = d3.scaleBand()
+                        .domain(locations)
+                        .range([0, width])
+                        .padding(0.2);
                     
                     // Update x1Scale based on new x0Scale
                     currentX1Scale = d3.scaleBand()
@@ -309,10 +278,10 @@
                         .attr('transform', `translate(0, ${height})`)
                         .call(d3.axisBottom(currentX0Scale))
                         .selectAll('text')
-                        .style('text-anchor', sortBy === 'score' ? 'end' : 'middle')
-                        .attr('dx', sortBy === 'score' ? '-.8em' : '0')
-                        .attr('dy', sortBy === 'score' ? '.15em' : '10')
-                        .attr('transform', sortBy === 'score' ? 'rotate(-45)' : 'rotate(0)');
+                        .style('text-anchor', 'middle')
+                        .attr('dx', '0')
+                        .attr('dy', '10')
+                        .attr('transform', 'rotate(0)');
                     
                     // Y-axis
                     svg.append('g')
@@ -338,21 +307,9 @@
                     
                     // Add rectangles
                     barGroups.append('rect')
-                        .attr('x', d => {
-                            if (d3.select('#sort-filter').node().value === 'score') {
-                                return currentX0Scale(d.location + ' - ' + d.gender);
-                            } else {
-                                return currentX0Scale(d.location) + currentX1Scale(d.gender);
-                            }
-                        })
+                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender))
                         .attr('y', d => currentYScale(d.score))
-                        .attr('width', d => {
-                            if (d3.select('#sort-filter').node().value === 'score') {
-                                return currentX0Scale.bandwidth();
-                            } else {
-                                return currentX1Scale.bandwidth();
-                            }
-                        })
+                        .attr('width', d => currentX1Scale.bandwidth())
                         .attr('height', d => height - currentYScale(d.score))
                         .attr('fill', d => colorScale(d.gender))
                         .attr('opacity', 0.8)
@@ -386,12 +343,7 @@
                     // Add value labels
                     barGroups.append('text')
                         .attr('class', 'bar-label')
-                        .attr('x', d => {
-                            const xPos = d3.select('#sort-filter').node().value === 'score' 
-                                ? currentX0Scale(d.location + ' - ' + d.gender) + currentX0Scale.bandwidth() / 2
-                                : currentX0Scale(d.location) + currentX1Scale(d.gender) + currentX1Scale.bandwidth() / 2;
-                            return xPos;
-                        })
+                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender) + currentX1Scale.bandwidth() / 2)
                         .attr('y', d => {
                             const barHeight = height - currentYScale(d.score);
                             return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
@@ -406,7 +358,6 @@
                 // Add event listeners (wait a bit to ensure elements exist)
                 setTimeout(() => {
                     const genderFilter = d3.select('#gender-filter');
-                    const sortFilter = d3.select('#sort-filter');
                     
                     if (!genderFilter.empty()) {
                         genderFilter.on('change', function() {
@@ -415,15 +366,6 @@
                         });
                     } else {
                         console.error('Gender filter not found');
-                    }
-                    
-                    if (!sortFilter.empty()) {
-                        sortFilter.on('change', function() {
-                            console.log('Sort filter changed');
-                            updateVisualization();
-                        });
-                    } else {
-                        console.error('Sort filter not found');
                     }
                 }, 200);
             })
