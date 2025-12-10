@@ -1,1 +1,51 @@
+DESIGN EXPLANATION: THE IMPACT OF SCREEN TIME ON MENTAL HEALTH
 
+Published Website: https://dishantbudhi.com/DS4200-Project/
+
+PROJECT OVERVIEW
+This project explores relationships between screen time patterns and mental health outcomes using Altair and D3.js visualizations. Dataset: "Impact of Screen Time on Mental Health" from Kaggle (2,001 participants, 25 attributes).
+
+VISUALIZATIONS
+
+1. Boxplot - Screen Time by Gender (Altair)
+   - Shows distribution and outliers across genders
+   - Key insight: All genders cluster around 6 hours; females show more outliers
+
+2. Scatterplot - Screen Time vs Sleep Duration (Altair)
+   - Color-encoded by sleep quality (Viridis scale)
+   - Key insight: Lower sleep quality clusters with higher screen time
+
+3. Grouped Bar Chart - Depression by Social Media & Location (D3)
+   - Interactive chart with error bars showing standard deviation
+   - Key insight: Depression scores rise with social media usage; urban shows steepest increases
+
+4. Heatmap - Screen Time vs Mental Health Distribution (Altair)
+   - Shows density patterns across binned ranges
+   - Key insight: Highest concentration in 4-8 hour range with moderate mental health scores
+
+5. Grouped Bar Chart - Mental Health by Location & Gender (D3)
+   - Interactive gender filter
+   - Key insight: Mental health scores stable (49-51) across all combinations
+
+DESIGN PRINCIPLES
+- Colorblind-friendly: Okabe-Ito palette, pattern overlays for D3 charts
+- Interactivity: Tooltips and filters on D3 visualizations
+- Accessibility: Clear labels, adequate contrast, descriptive axis titles
+- Consistency: Left-aligned charts, consistent container styling
+- Narrative flow: Visualizations ordered from general to specific
+
+TECHNICAL IMPLEMENTATION
+- Altair: Generated as PNG images, embedded as static images
+- D3: Interactive JavaScript files loading data via d3.csv()
+- Dependencies: D3.js v7, Vega-Lite v5, Vega-Embed v6 (CDN); Python: altair, pandas, vl-convert-python
+
+KEY FINDINGS
+- Screen time similar across genders
+- Social media usage stronger predictor of depression than general screen time
+- Sleep quality more affected than duration by screen time
+- Urban environments amplify social media's negative mental health impacts
+- Most participants fall into moderate ranges for both screen time and mental health
+
+TEAM
+Alexandra Rosado Poma, Dishant Budhi, Justin Lee
+Course: DS 4200 - Information Presentation and Data Visualization

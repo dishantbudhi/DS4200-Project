@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project explores the relationship between screen time patterns and mental health outcomes across different demographic groups. Through interactive visualizations built with Altair and D3.js, we examine how factors like gender, sleep patterns, social media usage, and location context relate to anxiety, depression, and overall mental well-being.
+This project explores the relationship between screen time patterns and mental health outcomes across different demographic groups. Through visualizations built with Altair (Vega-Lite) and D3.js, we examine how factors like gender, sleep patterns, social media usage, and location context relate to anxiety, depression, and overall mental well-being.
 
 ## Project Structure
 
@@ -10,16 +10,15 @@ This project explores the relationship between screen time patterns and mental h
 DS4200-Project/
 ├── index.html                 # Main HTML file
 ├── styles.css                  # CSS styling
-├── digital_diet_mental_health.csv  # Dataset
+├── digital_diet_mental_health.csv  # Dataset (optional for submission)
 ├── design_explanation.txt      # Design rationale document
 ├── requirements.txt            # Python dependencies
-├── altair/                     # Altair visualizations (JavaScript + Python)
-│   ├── boxplot.js              # Visualization 1: Box plot (GENERATED - run create_boxplot.py)
-│   ├── scatterplot_sleep.js    # Visualization 2: Scatter plot (GENERATED - run create_scatterplot_sleep.py)
-│   ├── heatmap.js              # Visualization 4: Heatmap (GENERATED - run create_heatmap.py)
-│   ├── create_boxplot.py       # Python script to generate boxplot.js
-│   ├── create_scatterplot_sleep.py # Python script to generate scatterplot_sleep.js
-│   └── create_heatmap.py       # Python script to generate heatmap.js
+├── altair/                     # Altair visualizations (PNG images + Python)
+│   ├── visualizations.ipynb    # Jupyter notebook with all Altair visualizations
+│   ├── generate_pngs.py        # Python script to generate PNG images
+│   ├── boxplot.png             # Visualization 1: Box plot - Screen time by gender
+│   ├── scatterplot_sleep.png   # Visualization 2: Scatter plot - Screen time vs sleep
+│   └── heatmap.png             # Visualization 4: Heatmap - Screen time vs mental health
 ├── d3/                         # D3 visualizations (JavaScript)
 │   ├── scatter_plot.js         # Visualization 3: Grouped bar - Depression vs social media
 │   └── grouped_chart.js        # Visualization 5: Grouped bar - Mental health by location/gender
@@ -30,32 +29,36 @@ DS4200-Project/
 
 Our project includes 5 distinct visualizations, each exploring different aspects of the screen time-mental health relationship:
 
-1. **Visualization 1 — Boxplot (Altair)**: Screen Time by Gender (With Tooltip)
+1. **Visualization 1 — Boxplot (Altair)**: Screen Time by Gender
+   - PNG image displayed in index.html
    - Highlights central tendencies, variation, and outliers
-   - Tooltip improves interpretation by showing exact medians, quartiles, and outlier values
    - Key takeaway: All gender groups center around 6 hours of screen time, but females show more upper-end outliers—indicating slightly wider variability
 
-2. **Visualization 2 — Scatterplot (Altair)**: Screen Time vs Sleep Duration (With Tooltip)
-   - Ideal for dense continuous data
-   - Tooltips allow viewers to hover and inspect specific sleep quality, screen time, and sleep duration values
-   - Key takeaway: There is no strong linear relationship—sleep duration varies widely across all screen-time levels. However, lower sleep quality appears slightly more common among heavier screen users
+2. **Visualization 2 — Scatterplot (Altair)**: Screen Time vs Sleep Duration
+   - PNG image displayed in index.html
+   - Shows relationship between screen time and sleep duration, colored by sleep quality
+   - Includes reference line at 7 hours (recommended sleep duration)
+   - Key takeaway: Sleep duration varies widely across all screen-time levels. However, lower sleep quality appears more common among heavier screen users
 
 3. **Visualization 3 — Average Depression Score by Social Media Usage and Location (D3)**: Interactive Grouped Bar Chart with Error Bars
-   - Grouped bar chart showing average depression scores across social media usage bins (0-2, 2-4, 4-6, 6-8, 8+ hours), grouped by location type
+   - Interactive JavaScript visualization
+   - Grouped bar chart showing average depression scores across social media usage bins (0-2, 2-4, 4-6 hrs), grouped by location type
    - Error bars display standard deviation to show variability within each group
-   - Colorblind-friendly design using Okabe-Ito color palette (blue, orange, green) with pattern overlays for additional differentiation
+   - Colorblind-friendly design with pattern overlays for additional differentiation
    - Interactive location filter allows viewers to focus on specific location types
    - Hover tooltips reveal detailed statistics including sample size and standard deviation
    - Key takeaway: Higher social media usage generally corresponds with higher depression scores across all location types, with urban participants showing the most pronounced increases at higher usage levels
 
-4. **Visualization 4 — Heatmap (Altair)**: Screen Time vs Mental Health Score Distribution (With Tooltip)
-   - Ideal for showing density patterns
-   - Tooltip interactivity lets users hover to see the exact number of participants in each cell
-   - Key takeaway: The highest concentration of participants falls between 4–8 hours of screen time and moderate mental health scores. Nothing suggests that extreme screen time directly predicts very low or very high mental health scores
+4. **Visualization 4 — Heatmap (Altair)**: Screen Time vs Mental Health Score Distribution
+   - PNG image displayed in index.html
+   - Shows density patterns across screen time and mental health score ranges
+   - Text labels show exact counts in each cell
+   - Key takeaway: The highest concentration of participants falls between 4–8 hours of screen time and moderate mental health scores. Extreme screen time doesn't directly predict very low or very high mental health scores
 
 5. **Visualization 5 — Mental Health Scores by Location and Gender (D3)**: Interactive Bar Chart
+   - Interactive JavaScript visualization
    - Hover tooltips display the exact average score for each bar
-   - Interactive legend allows users to highlight or isolate a gender category
+   - Interactive gender filter allows users to filter by gender category
    - Key takeaway: Overall mental health scores are fairly consistent, ranging from about 49 to 51 across all regions and genders. There is a slight dip in the urban male group, but the differences are small
 
 ## Running the Project
@@ -87,20 +90,18 @@ All web dependencies are loaded via CDN:
 
 No local installation required for the website!
 
-### Python Dependencies (Required for generating JS files)
-The JavaScript files in `altair/` are generated from Python scripts. To regenerate them:
+### Python Dependencies (Required for generating PNG images)
+The PNG images in `altair/` are generated from Python code. To regenerate them:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-Then run the scripts to generate the JavaScript files:
-```bash
-python altair/create_boxplot.py          # Generates altair/boxplot.js
-python altair/create_scatterplot_sleep.py # Generates altair/scatterplot_sleep.js
-python altair/create_heatmap.py          # Generates altair/heatmap.js
-```
+Then run either:
+- The Jupyter notebook: `altair/visualizations.ipynb` (run all cells)
+- Or the Python script: `python altair/generate_pngs.py`
 
-**Note:** The `.js` files in `altair/` are auto-generated. To modify visualizations, edit the Python scripts and regenerate the JS files.
+**Note:** The PNG files in `altair/` are generated from the notebook or script. To modify visualizations, edit the notebook/script and regenerate the PNGs.
 
 ## Data Source
 
@@ -128,7 +129,7 @@ Overall, screen time does play a role in mental health, but it's one factor amon
 
 ## Design Documentation
 
-See `design_explanation.txt` for detailed design rationale, visualization choices, and the published website link.
+See `design_explanation.txt` for detailed design rationale, visualization choices, technical implementation details, CSS design decisions, JavaScript design decisions, Python/notebook design decisions, HTML structure decisions, and the published website link.
 
 ## Course
 

@@ -1,22 +1,12 @@
-"""
-Python script to generate PNG images from Altair visualizations
-Run this script to generate PNG files for use in index.html
-
-Usage:
-    python altair/generate_pngs.py
-"""
-
 import altair as alt
 import pandas as pd
 import os
 import sys
 
-# Get paths
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)
 csv_path = os.path.join(project_root, 'digital_diet_mental_health.csv')
 
-# Load the data
 if not os.path.exists(csv_path):
     print(f"Error: Could not find data file at {csv_path}")
     sys.exit(1)
@@ -24,9 +14,6 @@ if not os.path.exists(csv_path):
 df = pd.read_csv(csv_path)
 print(f"Data loaded: {len(df)} rows")
 
-# ============================================================================
-# Visualization 1: Boxplot - Screen Time by Gender
-# ============================================================================
 print("\nGenerating Visualization 1: Boxplot...")
 
 genders = ['Male', 'Female', 'Other']
@@ -93,9 +80,6 @@ png_path = os.path.join(script_dir, 'boxplot.png')
 boxplot_chart.save(png_path, scale_factor=2)
 print(f"✓ Saved boxplot.png to {png_path}")
 
-# ============================================================================
-# Visualization 2: Scatterplot - Screen Time vs Sleep Duration
-# ============================================================================
 print("\nGenerating Visualization 2: Scatterplot...")
 
 scatter_data = df[
@@ -181,9 +165,6 @@ png_path = os.path.join(script_dir, 'scatterplot_sleep.png')
 scatterplot_chart.save(png_path, scale_factor=2)
 print(f"✓ Saved scatterplot_sleep.png to {png_path}")
 
-# ============================================================================
-# Visualization 4: Heatmap - Screen Time vs Mental Health Distribution
-# ============================================================================
 print("\nGenerating Visualization 4: Heatmap...")
 
 screen_time_labels = ['0-4 hrs', '4-6 hrs', '6-8 hrs', '8-10 hrs', '10+ hrs']
