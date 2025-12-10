@@ -1,0 +1,5 @@
+altair>=5.0.0
+pandas>=1.5.0
+vega-datasets>=0.9.0
+vl-convert-python>=1.0.0
+

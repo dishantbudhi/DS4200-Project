@@ -12,18 +12,17 @@ DS4200-Project/
 ├── styles.css                  # CSS styling
 ├── digital_diet_mental_health.csv  # Dataset
 ├── design_explanation.txt      # Design rationale document
-├── scripts/                    # Python scripts (optional)
-│   ├── create_boxplot.py
-│   ├── create_scatterplot_sleep.py
-│   └── create_heatmap.py
-├── visualizations/
-│   ├── altair/                 # Altair visualizations (JavaScript)
-│   │   ├── boxplot.js          # Visualization 1: Box plot - Screen time by gender
-│   │   ├── scatterplot_sleep.js # Visualization 2: Scatter plot - Screen time vs sleep
-│   │   └── heatmap.js          # Visualization 4: Heatmap - Screen time vs mental health
-│   └── d3/                     # D3 visualizations
-│       ├── scatter_plot.js     # Visualization 3: Scatter plot - Depression vs social media
-│       └── grouped_chart.js    # Visualization 5: Grouped bar - Mental health by location/gender
+├── requirements.txt            # Python dependencies
+├── altair/                     # Altair visualizations (JavaScript + Python)
+│   ├── boxplot.js              # Visualization 1: Box plot (GENERATED - run create_boxplot.py)
+│   ├── scatterplot_sleep.js    # Visualization 2: Scatter plot (GENERATED - run create_scatterplot_sleep.py)
+│   ├── heatmap.js              # Visualization 4: Heatmap (GENERATED - run create_heatmap.py)
+│   ├── create_boxplot.py       # Python script to generate boxplot.js
+│   ├── create_scatterplot_sleep.py # Python script to generate scatterplot_sleep.js
+│   └── create_heatmap.py       # Python script to generate heatmap.js
+├── d3/                         # D3 visualizations (JavaScript)
+│   ├── scatter_plot.js         # Visualization 3: Grouped bar - Depression vs social media
+│   └── grouped_chart.js        # Visualization 5: Grouped bar - Mental health by location/gender
 └── README.md
 ```
 
@@ -80,12 +79,28 @@ Our project includes 5 distinct visualizations, each exploring different aspects
 
 ## Dependencies
 
-All dependencies are loaded via CDN:
+### Web Dependencies (CDN)
+All web dependencies are loaded via CDN:
 - D3.js v7
 - Vega-Lite v5
 - Vega-Embed v6
 
-No local installation required!
+No local installation required for the website!
+
+### Python Dependencies (Required for generating JS files)
+The JavaScript files in `altair/` are generated from Python scripts. To regenerate them:
+```bash
+pip install -r requirements.txt
+```
+
+Then run the scripts to generate the JavaScript files:
+```bash
+python altair/create_boxplot.py          # Generates altair/boxplot.js
+python altair/create_scatterplot_sleep.py # Generates altair/scatterplot_sleep.js
+python altair/create_heatmap.py          # Generates altair/heatmap.js
+```
+
+**Note:** The `.js` files in `altair/` are auto-generated. To modify visualizations, edit the Python scripts and regenerate the JS files.
 
 ## Data Source
 
@@ -110,6 +125,10 @@ Overall, screen time does play a role in mental health, but it's one factor amon
 - Alexandra Rosado Poma
 - Dishant Budhi
 - Justin Lee
+
+## Design Documentation
+
+See `design_explanation.txt` for detailed design rationale, visualization choices, and the published website link.
 
 ## Course
 

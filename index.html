@@ -54,7 +54,9 @@
             <p class="narrative-link">
                 We begin by examining the foundational question: do screen time patterns differ meaningfully across gender groups? This distribution analysis sets the stage for understanding how digital habits vary across demographics.
             </p>
-            <div id="vis1" class="chart-container"></div>
+            <div class="chart-container">
+                <img src="altair/boxplot.png" alt="Screen Time Distribution by Gender">
+            </div>
             <div class="interpretive-caption">
                 <p><strong>Key Insight:</strong> While all gender groups cluster around 6 hours of daily screen time, females exhibit more upper-end outliers—revealing that while median usage is similar, some female participants report significantly higher screen exposure. This suggests that gender alone doesn't predict screen time, but individual variation is more pronounced among females.</p>
             </div>
@@ -67,7 +69,9 @@
             <p class="narrative-link">
                 Having established baseline screen time patterns, we now explore how digital habits intersect with sleep—a critical component of mental well-being. This analysis reveals whether screen time directly impacts sleep duration or quality.
             </p>
-            <div id="vis2" class="chart-container"></div>
+            <div class="chart-container">
+                <img src="altair/scatterplot_sleep.png" alt="Screen Time and Sleep Duration">
+            </div>
             <div class="interpretive-caption">
                 <p><strong>Key Insight:</strong> Sleep duration shows wide variation regardless of screen time levels, indicating that screen exposure doesn't strongly predict how long people sleep. However, points with lower sleep quality (darker purple/yellow) cluster more frequently among higher screen-time users—suggesting that while screen time may not reduce sleep hours, it appears to degrade sleep quality, which could contribute to mental health challenges. The color gradient (purple to yellow) represents sleep quality from low (0) to high (10), making it easy to spot patterns.</p>
             </div>
@@ -102,7 +106,9 @@
             <p class="narrative-link">
                 After identifying the social media-depression connection, we zoom out to examine the broader relationship between total screen time and overall mental health scores. This density visualization reveals where most participants cluster and whether extreme screen usage correlates with mental health extremes.
             </p>
-            <div id="vis4" class="chart-container"></div>
+            <div class="chart-container">
+                <img src="altair/heatmap.png" alt="Screen Time and Mental Health Distribution">
+            </div>
             <div class="interpretive-caption">
                 <p><strong>Key Insight:</strong> The darkest cells (representing highest participant concentration) cluster in the 4-8 hour screen time range with moderate mental health scores (30-70), revealing that most people fall into moderate ranges for both variables. Critically, very high screen time (10+ hours) doesn't strongly predict very low mental health scores—suggesting that while excessive screen time may contribute to mental health challenges, it's not determinative. The relationship appears more nuanced than a simple linear correlation, with individual factors likely playing significant roles.</p>
             </div>
@@ -199,17 +205,9 @@
         </footer>
     </div>
 
-    <!-- Load visualization scripts -->
-    <script src="visualizations/altair/boxplot.js"></script>
-    <script src="visualizations/altair/scatterplot_sleep.js"></script>
-    <script src="visualizations/d3/scatter_plot.js"></script>
-    <script src="visualizations/altair/heatmap.js"></script>
-    <script src="visualizations/d3/grouped_chart.js"></script>
-    <script>
-        // Debug: Check if scripts loaded
-        console.log('All scripts loaded');
-        console.log('D3 version:', d3.version);
-    </script>
+    <!-- Load visualization scripts (D3 only - Altair visualizations are PNG images) -->
+    <script src="d3/scatter_plot.js"></script>
+    <script src="d3/grouped_chart.js"></script>
 </body>
 </html>
 

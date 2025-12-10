@@ -113,6 +113,28 @@ section h3 {
     border: 1px solid #e0e0e0;
 }
 
+.chart-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Ensure consistent sizing for Altair visualizations */
+.chart-container img[src*="boxplot"] {
+    width: 600px;
+    max-width: 100%;
+}
+
+.chart-container img[src*="scatterplot_sleep"] {
+    width: 700px;
+    max-width: 100%;
+}
+
+.chart-container img[src*="heatmap"] {
+    width: 650px;
+    max-width: 100%;
+}
+
 .controls {
     margin: 20px 0;
     padding: 15px;
