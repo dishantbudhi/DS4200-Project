@@ -1,8 +1,6 @@
-// D3 Grouped Bar Chart: Mental Health Scores by Location and Gender
 (function() {
     'use strict';
     
-    // Wait for DOM to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
@@ -10,22 +8,18 @@
     }
     
     function init() {
-        // Set up dimensions and margins
         const margin = { top: 70, bottom: 80, left: 80, right: 150 };
         const width = 800 - margin.left - margin.right;
         const height = 500 - margin.top - margin.bottom;
         
-        // Check if container exists
         const container = d3.select('#vis5');
         if (container.empty()) {
             console.error('Container #vis5 not found');
             return;
         }
         
-        // Clear any existing content
         container.selectAll('*').remove();
         
-        // Create SVG
         const svg = container
             .append('svg')
             .attr('width', width + margin.left + margin.right)
@@ -33,17 +27,12 @@
             .append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
         
-        // Color scale for gender (Okabe-Ito colorblind-safe palette)
         const colorScale = d3.scaleOrdinal()
             .domain(['Male', 'Female', 'Other'])
-            .range(['#0072B2', '#E69F00', '#009E73']); // Blue, Orange, Green - colorblind safe
+            .range(['#0072B2', '#E69F00', '#009E73']);
         
-        // Load data
         d3.csv('digital_diet_mental_health.csv')
             .then(function(data) {
-                console.log('Data loaded:', data.length, 'rows');
-                
-                // Process data: group by location and gender
                 const grouped = {};
                 
                 data.forEach(d => {
@@ -66,23 +55,17 @@
                     grouped[key].count += 1;
                 });
                 
-                console.log('Grouped data:', grouped);
-                
-                // Calculate averages
                 const groupedData = Object.values(grouped).map(g => ({
                     location: g.location,
                     gender: g.gender,
                     score: g.sum / g.count
                 }));
                 
-                console.log('Averaged data:', groupedData);
-                
                 if (groupedData.length === 0) {
                     console.error('No data to display');
                     return;
                 }
                 
-                // Create scales
                 const locations = ['Urban', 'Suburban', 'Rural'];
                 const genders = ['Male', 'Female', 'Other'];
                 
@@ -101,7 +84,6 @@
                     .range([height, 0])
                     .nice();
                 
-                // Add title and subtitle
                 svg.append('text')
                     .attr('x', width / 2)
                     .attr('y', -25)
@@ -120,11 +102,9 @@
                     .style('font-style', 'italic')
                     .text('Average mental health scores grouped by location type and gender');
                 
-                // Create axes
                 const xAxis = d3.axisBottom(x0Scale);
                 const yAxis = d3.axisLeft(yScale);
                 
-                // X-axis
                 svg.append('g')
                     .attr('class', 'x-axis')
                     .attr('transform', `translate(0, ${height})`)
@@ -137,7 +117,6 @@
                     .style('font-size', '14px')
                     .text('Location Type');
                 
-                // Y-axis
                 svg.append('g')
                     .attr('class', 'y-axis')
                     .call(yAxis)
@@ -150,24 +129,20 @@
                     .style('font-size', '14px')
                     .text('Average Mental Health Score');
                 
-                // Draw bars function with custom scales
                 function updateBarsWithScales(dataToShow) {
-                    // Remove existing bars and labels
                     svg.selectAll('.bar-group').remove();
                     svg.selectAll('.bar-label').remove();
                     
-                    // Create bar groups
                     const barGroups = svg.selectAll('.bar-group')
                         .data(dataToShow)
                         .enter()
                         .append('g')
                         .attr('class', 'bar-group');
                     
-                    // Add rectangles
-                    barGroups.append('rect')
-                        .attr('x', d => (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0))
+                    const rects = barGroups.append('rect')
+                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender))
                         .attr('y', d => currentYScale(d.score))
-                        .attr('width', d => currentX1Scale.bandwidth())
+                        .attr('width', currentX1Scale.bandwidth())
                         .attr('height', d => height - currentYScale(d.score))
                         .attr('fill', d => colorScale(d.gender))
                         .attr('opacity', 0.8)
@@ -179,17 +154,10 @@
                                 .attr('stroke', 'black')
                                 .attr('stroke-width', 2);
                             
-                            const tooltip = d3.select('body')
-                                .append('div')
+                            d3.select('body').append('div')
                                 .attr('class', 'tooltip')
-                                .style('opacity', 1);
-                            
-                            tooltip.html(`
-                                <strong>Location:</strong> ${d.location}<br/>
-                                <strong>Gender:</strong> ${d.gender}<br/>
-                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}<br/>
-                                <em>Higher scores indicate better mental health</em>
-                            `)
+                                .style('opacity', 1)
+                                .html(`<strong>Location:</strong> ${d.location}<br/><strong>Gender:</strong> ${d.gender}<br/><strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}<br/><em>Higher scores indicate better mental health</em>`)
                                 .style('left', (event.pageX + 10) + 'px')
                                 .style('top', (event.pageY - 10) + 'px');
                         })
@@ -198,14 +166,12 @@
                                 .attr('opacity', 0.8)
                                 .attr('stroke', '#333')
                                 .attr('stroke-width', 1);
-                            
                             d3.selectAll('.tooltip').remove();
                         });
                     
-                    // Add value labels
                     barGroups.append('text')
                         .attr('class', 'bar-label')
-                        .attr('x', d => (currentX0Scale(d.location) || 0) + (currentX1Scale(d.gender) || 0) + currentX1Scale.bandwidth() / 2)
+                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender) + currentX1Scale.bandwidth() / 2)
                         .attr('y', d => {
                             const barHeight = height - currentYScale(d.score);
                             return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
@@ -216,22 +182,17 @@
                         .style('font-weight', 'bold')
                         .text(d => d.score.toFixed(1));
                     
-                    // Highlight lowest mental health score (urban male)
                     const minScore = d3.min(dataToShow, d => d.score);
-                    barGroups.selectAll('rect')
-                        .attr('stroke-width', d => d.score === minScore ? 3 : 1)
+                    rects.attr('stroke-width', d => d.score === minScore ? 3 : 1)
                         .attr('stroke', d => d.score === minScore ? '#1F2937' : '#333');
                 }
                 
-                // Store scales for updates
                 let currentX0Scale = x0Scale;
                 let currentX1Scale = x1Scale;
                 let currentYScale = yScale;
                 
-                // Initial draw
                 updateBarsWithScales(groupedData);
                 
-                // Add legend (positioned to avoid overlap)
                 const legend = svg.append('g')
                     .attr('transform', `translate(${width + 30}, 60)`);
                 
@@ -246,7 +207,6 @@
                     const legendItem = legend.append('g')
                         .attr('transform', `translate(0, ${(i + 1) * 38})`);
                     
-                    // Add colored rectangle (larger)
                     legendItem.append('rect')
                         .attr('width', 26)
                         .attr('height', 20)
@@ -262,50 +222,33 @@
                         .text(d);
                 });
                 
-                // Filter function
                 function updateVisualization() {
-                    let data = [...groupedData];
-                    
-                    // Filter by gender
                     const selectedGender = d3.select('#gender-filter').node().value;
-                    console.log('Selected gender:', selectedGender);
-                    if (selectedGender !== 'all') {
-                        data = data.filter(d => d.gender === selectedGender);
-                    }
+                    let data = selectedGender === 'all' ? groupedData : groupedData.filter(d => d.gender === selectedGender);
                     
-                    // Sort by location, then gender
-                    data.sort((a, b) => {
-                        const locOrder = { 'Urban': 0, 'Suburban': 1, 'Rural': 2 };
-                        if (locOrder[a.location] !== locOrder[b.location]) {
-                            return locOrder[a.location] - locOrder[b.location];
-                        }
-                        const genderOrder = { 'Male': 0, 'Female': 1, 'Other': 2 };
-                        return genderOrder[a.gender] - genderOrder[b.gender];
-                    });
+                    const locOrder = { 'Urban': 0, 'Suburban': 1, 'Rural': 2 };
+                    const genderOrder = { 'Male': 0, 'Female': 1, 'Other': 2 };
+                    data.sort((a, b) => locOrder[a.location] - locOrder[b.location] || genderOrder[a.gender] - genderOrder[b.gender]);
                     
                     currentX0Scale = d3.scaleBand()
                         .domain(locations)
                         .range([0, width])
                         .padding(0.2);
                     
-                    // Update x1Scale based on new x0Scale
                     currentX1Scale = d3.scaleBand()
                         .domain(genders)
                         .range([0, currentX0Scale.bandwidth()])
                         .padding(0.05);
                     
-                    // Update y scale based on filtered data
                     const maxScore = d3.max(data, d => d.score);
                     currentYScale = d3.scaleLinear()
                         .domain([0, maxScore * 1.1])
                         .range([height, 0])
                         .nice();
                     
-                    // Update axes
                     svg.select('.x-axis').remove();
                     svg.select('.y-axis').remove();
                     
-                    // X-axis
                     svg.append('g')
                         .attr('class', 'x-axis')
                         .attr('transform', `translate(0, ${height})`)
@@ -315,94 +258,17 @@
                         .style('font-size', '14px')
                         .style('font-weight', '500')
                         .attr('dx', '0')
-                        .attr('dy', '10')
-                        .attr('transform', 'rotate(0)');
+                        .attr('dy', '10');
                     
-                    // Y-axis
                     svg.append('g')
                         .attr('class', 'y-axis')
                         .call(d3.axisLeft(currentYScale))
                         .selectAll('text')
                         .style('font-size', '13px');
                     
-                    // Update bars with new scales
                     updateBarsWithScales(data);
                 }
                 
-                // Update bars function with custom scales
-                function updateBarsWithScales(dataToShow) {
-                    // Remove existing bars and labels
-                    svg.selectAll('.bar-group').remove();
-                    svg.selectAll('.bar-label').remove();
-                    
-                    // Create bar groups
-                    const barGroups = svg.selectAll('.bar-group')
-                        .data(dataToShow)
-                        .enter()
-                        .append('g')
-                        .attr('class', 'bar-group');
-                    
-                    // Add rectangles
-                    barGroups.append('rect')
-                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender))
-                        .attr('y', d => currentYScale(d.score))
-                        .attr('width', d => currentX1Scale.bandwidth())
-                        .attr('height', d => height - currentYScale(d.score))
-                        .attr('fill', d => colorScale(d.gender))
-                        .attr('opacity', 0.8)
-                        .attr('stroke', '#333')
-                        .attr('stroke-width', 1)
-                        .on('mouseover', function(event, d) {
-                            d3.select(this)
-                                .attr('opacity', 1)
-                                .attr('stroke', 'black')
-                                .attr('stroke-width', 2);
-                            
-                            const tooltip = d3.select('body')
-                                .append('div')
-                                .attr('class', 'tooltip')
-                                .style('opacity', 1);
-                            
-                            tooltip.html(`
-                                <strong>Location:</strong> ${d.location}<br/>
-                                <strong>Gender:</strong> ${d.gender}<br/>
-                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}<br/>
-                                <em>Higher scores indicate better mental health</em>
-                            `)
-                                .style('left', (event.pageX + 10) + 'px')
-                                .style('top', (event.pageY - 10) + 'px');
-                        })
-                        .on('mouseout', function() {
-                            d3.select(this)
-                                .attr('opacity', 0.8)
-                                .attr('stroke', '#333')
-                                .attr('stroke-width', 1);
-                            
-                            d3.selectAll('.tooltip').remove();
-                        });
-                    
-                    // Add value labels
-                    barGroups.append('text')
-                        .attr('class', 'bar-label')
-                        .attr('x', d => currentX0Scale(d.location) + currentX1Scale(d.gender) + currentX1Scale.bandwidth() / 2)
-                        .attr('y', d => {
-                            const barHeight = height - currentYScale(d.score);
-                            return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
-                        })
-                        .attr('text-anchor', 'middle')
-                        .style('font-size', '12px')
-                        .style('fill', 'black')
-                        .style('font-weight', 'bold')
-                        .text(d => d.score.toFixed(1));
-                    
-                    // Highlight lowest mental health score (urban male)
-                    const minScore = d3.min(dataToShow, d => d.score);
-                    barGroups.selectAll('rect')
-                        .attr('stroke-width', d => d.score === minScore ? 3 : 1)
-                        .attr('stroke', d => d.score === minScore ? '#1F2937' : '#333');
-                }
-                
-                // Add event listeners (wait a bit to ensure elements exist)
                 setTimeout(() => {
                     const genderFilter = d3.select('#gender-filter');
                     

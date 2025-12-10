@@ -1,4 +1,3 @@
-// Heatmap: Compare Screen Time vs Mental Health Score (2 variables comparison) with interactivity
 (function() {
     'use strict';
     
@@ -9,7 +8,6 @@
     }
     
     function init() {
-        // Check if container exists
         const container = d3.select('#vis4');
         if (container.empty()) {
             console.error('Container #vis4 not found');
@@ -18,13 +16,9 @@
         
         d3.csv('digital_diet_mental_health.csv')
             .then(function(data) {
-                console.log('Heatmap data loaded:', data.length);
-                
-                // Process data: create bins for screen time and mental health score
                 const screenTimeLabels = ['0-4 hrs', '4-6 hrs', '6-8 hrs', '8-10 hrs', '10+ hrs'];
                 const mentalHealthLabels = ['0-30', '30-50', '50-70', '70-100'];
                 
-                // Initialize count matrix
                 const heatmapData = [];
                 
                 screenTimeLabels.forEach((screenLabel, i) => {
@@ -37,26 +31,14 @@
                     });
                 });
                 
-                // Count data points in each bin
                 data.forEach(d => {
                     const screenTime = +d.daily_screen_time_hours || 0;
                     const mentalHealth = +d.mental_health_score || 0;
                     
-                    // Skip invalid data
                     if (isNaN(screenTime) || isNaN(mentalHealth)) return;
                     
-                    // Find screen time bin
-                    let screenBin = 0;
-                    if (screenTime >= 4 && screenTime < 6) screenBin = 1;
-                    else if (screenTime >= 6 && screenTime < 8) screenBin = 2;
-                    else if (screenTime >= 8 && screenTime < 10) screenBin = 3;
-                    else if (screenTime >= 10) screenBin = 4;
-                    
-                    // Find mental health bin
-                    let healthBin = 0;
-                    if (mentalHealth >= 30 && mentalHealth < 50) healthBin = 1;
-                    else if (mentalHealth >= 50 && mentalHealth < 70) healthBin = 2;
-                    else if (mentalHealth >= 70) healthBin = 3;
+                    const screenBin = screenTime < 4 ? 0 : screenTime < 6 ? 1 : screenTime < 8 ? 2 : screenTime < 10 ? 3 : 4;
+                    const healthBin = mentalHealth < 30 ? 0 : mentalHealth < 50 ? 1 : mentalHealth < 70 ? 2 : 3;
                     
                     const index = screenBin * mentalHealthLabels.length + healthBin;
                     if (heatmapData[index]) {
@@ -64,9 +46,6 @@
                     }
                 });
                 
-                console.log('Heatmap data processed:', heatmapData);
-                
-                // Create Vega-Lite spec for heatmap - simplified without complex selection
                 const spec = {
                     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                     "data": { "values": heatmapData },
@@ -181,20 +160,14 @@
                     }
                 };
                 
-                // Embed the visualization
                 vegaEmbed('#vis4', spec, { actions: false })
                     .then(function(result) {
-                        console.log('Heatmap embedded successfully');
-                        
-                        // Add click interaction manually using D3
                         const svg = d3.select('#vis4').select('svg');
                         if (!svg.empty()) {
                             svg.selectAll('rect')
                                 .style('cursor', 'pointer')
                                 .on('click', function(event, d) {
-                                    // Remove previous highlights
                                     svg.selectAll('rect').style('stroke', 'white').style('stroke-width', 2);
-                                    // Highlight clicked cell
                                     d3.select(this).style('stroke', 'black').style('stroke-width', 4);
                                 })
                                 .on('mouseover', function() {

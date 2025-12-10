@@ -1,9 +1,6 @@
-// Box Plot: Screen Time Distribution by Gender (showing gender differences)
 d3.csv('digital_diet_mental_health.csv').then(function(data) {
-    // Process data: filter and prepare for box plot
     const genders = ['Male', 'Female', 'Other'];
     
-    // Convert to numeric and filter
     const boxData = data
         .map(d => ({
             Gender: d.gender,
@@ -11,7 +8,6 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
         }))
         .filter(d => genders.includes(d.Gender) && !isNaN(d['Screen Time']) && d['Screen Time'] > 0);
     
-    // Create Vega-Lite spec for box plot
     const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "data": { "values": boxData },
@@ -74,6 +70,5 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
         }
     };
     
-    // Embed the visualization
     vegaEmbed('#vis1', spec, { actions: false }).catch(console.error);
 });

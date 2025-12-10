@@ -1,6 +1,4 @@
-// Scatter Plot: Screen Time vs Sleep Duration (showing lifestyle relationship)
 d3.csv('digital_diet_mental_health.csv').then(function(data) {
-    // Process data: screen time vs sleep duration
     const scatterData = data
         .map(d => ({
             'Screen Time': +d.daily_screen_time_hours || 0,
@@ -9,7 +7,6 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
         }))
         .filter(d => d['Screen Time'] > 0 && d['Sleep Duration'] > 0 && d['Sleep Duration'] <= 12);
     
-    // Create Vega-Lite spec for scatter plot
     const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
         "data": { "values": scatterData },
@@ -96,6 +93,5 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
         }
     };
     
-    // Embed the visualization
     vegaEmbed('#vis2', spec, { actions: false }).catch(console.error);
 });
