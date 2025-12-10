@@ -33,10 +33,10 @@
             .append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
         
-        // Color scale for gender (colorblind-safe palette)
+        // Color scale for gender (Okabe-Ito colorblind-safe palette)
         const colorScale = d3.scaleOrdinal()
             .domain(['Male', 'Female', 'Other'])
-            .range(['#0072B2', '#E69F00', '#009E73']);
+            .range(['#0072B2', '#E69F00', '#009E73']); // Blue, Orange, Green - colorblind safe
         
         // Load data
         d3.csv('digital_diet_mental_health.csv')
@@ -104,10 +104,10 @@
                 // Add title and subtitle
                 svg.append('text')
                     .attr('x', width / 2)
-                    .attr('y', -20)
+                    .attr('y', -25)
                     .attr('fill', 'black')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '18px')
+                    .style('font-size', '20px')
                     .style('font-weight', 'bold')
                     .text('Mental Health by Location and Gender');
                 
@@ -116,7 +116,7 @@
                     .attr('y', -5)
                     .attr('fill', '#666')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '12px')
+                    .style('font-size', '14px')
                     .style('font-style', 'italic')
                     .text('Average mental health scores grouped by location type and gender');
                 
@@ -187,7 +187,8 @@
                             tooltip.html(`
                                 <strong>Location:</strong> ${d.location}<br/>
                                 <strong>Gender:</strong> ${d.gender}<br/>
-                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}
+                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}<br/>
+                                <em>Higher scores indicate better mental health</em>
                             `)
                                 .style('left', (event.pageX + 10) + 'px')
                                 .style('top', (event.pageY - 10) + 'px');
@@ -210,10 +211,16 @@
                             return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
                         })
                         .attr('text-anchor', 'middle')
-                        .style('font-size', '11px')
+                        .style('font-size', '12px')
                         .style('fill', 'black')
                         .style('font-weight', 'bold')
                         .text(d => d.score.toFixed(1));
+                    
+                    // Highlight lowest mental health score (urban male)
+                    const minScore = d3.min(dataToShow, d => d.score);
+                    barGroups.selectAll('rect')
+                        .attr('stroke-width', d => d.score === minScore ? 3 : 1)
+                        .attr('stroke', d => d.score === minScore ? '#1F2937' : '#333');
                 }
                 
                 // Store scales for updates
@@ -231,26 +238,27 @@
                 legend.append('text')
                     .attr('x', 0)
                     .attr('y', 0)
-                    .style('font-size', '15px')
+                    .style('font-size', '16px')
                     .style('font-weight', 'bold')
                     .text('Gender');
                 
                 genders.forEach((d, i) => {
                     const legendItem = legend.append('g')
-                        .attr('transform', `translate(0, ${(i + 1) * 35})`);
+                        .attr('transform', `translate(0, ${(i + 1) * 38})`);
                     
                     // Add colored rectangle (larger)
                     legendItem.append('rect')
-                        .attr('width', 24)
-                        .attr('height', 18)
+                        .attr('width', 26)
+                        .attr('height', 20)
                         .attr('fill', colorScale(d))
                         .attr('stroke', '#333')
-                        .attr('stroke-width', 1.5);
+                        .attr('stroke-width', 2);
                     
                     legendItem.append('text')
-                        .attr('x', 30)
-                        .attr('y', 14)
-                        .style('font-size', '13px')
+                        .attr('x', 32)
+                        .attr('y', 15)
+                        .style('font-size', '14px')
+                        .style('font-weight', '500')
                         .text(d);
                 });
                 
@@ -304,6 +312,8 @@
                         .call(d3.axisBottom(currentX0Scale))
                         .selectAll('text')
                         .style('text-anchor', 'middle')
+                        .style('font-size', '14px')
+                        .style('font-weight', '500')
                         .attr('dx', '0')
                         .attr('dy', '10')
                         .attr('transform', 'rotate(0)');
@@ -311,7 +321,9 @@
                     // Y-axis
                     svg.append('g')
                         .attr('class', 'y-axis')
-                        .call(d3.axisLeft(currentYScale));
+                        .call(d3.axisLeft(currentYScale))
+                        .selectAll('text')
+                        .style('font-size', '13px');
                     
                     // Update bars with new scales
                     updateBarsWithScales(data);
@@ -354,7 +366,8 @@
                             tooltip.html(`
                                 <strong>Location:</strong> ${d.location}<br/>
                                 <strong>Gender:</strong> ${d.gender}<br/>
-                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}
+                                <strong>Avg Mental Health Score:</strong> ${d.score.toFixed(1)}<br/>
+                                <em>Higher scores indicate better mental health</em>
                             `)
                                 .style('left', (event.pageX + 10) + 'px')
                                 .style('top', (event.pageY - 10) + 'px');
@@ -377,10 +390,16 @@
                             return barHeight > 20 ? currentYScale(d.score) - 5 : currentYScale(d.score) + 15;
                         })
                         .attr('text-anchor', 'middle')
-                        .style('font-size', '11px')
+                        .style('font-size', '12px')
                         .style('fill', 'black')
                         .style('font-weight', 'bold')
                         .text(d => d.score.toFixed(1));
+                    
+                    // Highlight lowest mental health score (urban male)
+                    const minScore = d3.min(dataToShow, d => d.score);
+                    barGroups.selectAll('rect')
+                        .attr('stroke-width', d => d.score === minScore ? 3 : 1)
+                        .attr('stroke', d => d.score === minScore ? '#1F2937' : '#333');
                 }
                 
                 // Add event listeners (wait a bit to ensure elements exist)

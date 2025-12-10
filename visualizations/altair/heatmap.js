@@ -70,39 +70,114 @@
                 const spec = {
                     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
                     "data": { "values": heatmapData },
-                    "mark": {
-                        "type": "rect",
-                        "stroke": "white",
-                        "strokeWidth": 2,
-                        "cursor": "pointer"
-                    },
-                    "encoding": {
-                        "x": {
-                            "field": "Screen Time",
-                            "type": "ordinal",
-                            "title": "Daily Screen Time (hours)",
-                            "sort": screenTimeLabels
-                        },
-                        "y": {
-                            "field": "Mental Health Score",
-                            "type": "ordinal",
-                            "title": "Mental Health Score Range",
-                            "sort": mentalHealthLabels
-                        },
-                        "fill": {
-                            "field": "count",
-                            "type": "quantitative",
-                            "scale": {
-                                "scheme": "blues"
+                    "layer": [
+                        {
+                            "mark": {
+                                "type": "rect",
+                                "stroke": "white",
+                                "strokeWidth": 2.5,
+                                "cursor": "pointer"
                             },
-                            "legend": { "title": "Number of People" }
+                            "encoding": {
+                                "x": {
+                                    "field": "Screen Time",
+                                    "type": "ordinal",
+                                    "title": "Daily Screen Time (hours)",
+                                    "sort": screenTimeLabels,
+                                    "axis": {
+                                        "titleFontSize": 15,
+                                        "labelFontSize": 13,
+                                        "titleFontWeight": "bold"
+                                    }
+                                },
+                                "y": {
+                                    "field": "Mental Health Score",
+                                    "type": "ordinal",
+                                    "title": "Mental Health Score Range",
+                                    "sort": mentalHealthLabels,
+                                    "axis": {
+                                        "titleFontSize": 15,
+                                        "labelFontSize": 13,
+                                        "titleFontWeight": "bold"
+                                    }
+                                },
+                                "fill": {
+                                    "field": "count",
+                                    "type": "quantitative",
+                                    "scale": {
+                                        "scheme": "blues",
+                                        "nice": true
+                                    },
+                                    "legend": { 
+                                        "title": "Number of Participants",
+                                        "titleFontSize": 14,
+                                        "labelFontSize": 13,
+                                        "titleFontWeight": "bold"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "mark": {
+                                "type": "text",
+                                "fontSize": 14,
+                                "fontWeight": "bold"
+                            },
+                            "encoding": {
+                                "x": {
+                                    "field": "Screen Time",
+                                    "type": "ordinal",
+                                    "sort": screenTimeLabels
+                                },
+                                "y": {
+                                    "field": "Mental Health Score",
+                                    "type": "ordinal",
+                                    "sort": mentalHealthLabels
+                                },
+                                "text": {
+                                    "field": "count",
+                                    "type": "quantitative",
+                                    "format": "d"
+                                },
+                                "fill": {
+                                    "condition": {
+                                        "test": {
+                                            "field": "count",
+                                            "gt": 50
+                                        },
+                                        "value": "white"
+                                    },
+                                    "value": "#333"
+                                }
+                            },
+                            "transform": [
+                                {
+                                    "filter": {
+                                        "field": "count",
+                                        "gt": 0
+                                    }
+                                }
+                            ]
                         }
-                    },
-                    "width": 500,
-                    "height": 400,
+                    ],
+                    "width": 650,
+                    "height": 500,
                     "title": {
                         "text": "Screen Time and Mental Health Distribution",
-                        "subtitle": "Distribution of participants across screen time and mental health score ranges"
+                        "subtitle": "Distribution of participants across screen time and mental health score ranges",
+                        "fontSize": 18,
+                        "subtitleFontSize": 14,
+                        "fontWeight": "bold"
+                    },
+                    "config": {
+                        "axis": {
+                            "labelFontSize": 13,
+                            "titleFontSize": 15
+                        },
+                        "legend": {
+                            "labelFontSize": 13,
+                            "titleFontSize": 14
+                        }
                     }
                 };
                 

@@ -49,34 +49,37 @@
 
         <!-- Visualization 1: Box Plot (Altair) -->
         <section class="visualization">
-            <h2>Visualization 1</h2>
-            <p class="chart-subtitle">Box Plot</p>
+            <h2>Screen Time Patterns Reveal Gender Similarities with Notable Outliers</h2>
+            <p class="chart-subtitle">Distribution of daily screen time hours across gender groups</p>
+            <p class="narrative-link">
+                We begin by examining the foundational question: do screen time patterns differ meaningfully across gender groups? This distribution analysis sets the stage for understanding how digital habits vary across demographics.
+            </p>
             <div id="vis1" class="chart-container"></div>
-            <div class="takeaway">
-                <h3>Key Takeaway</h3>
-                <p>
-                    All gender groups center around 6 hours of screen time, but females show more upper-end outliers—indicating slightly wider variability.
-                </p>
+            <div class="interpretive-caption">
+                <p><strong>Key Insight:</strong> While all gender groups cluster around 6 hours of daily screen time, females exhibit more upper-end outliers—revealing that while median usage is similar, some female participants report significantly higher screen exposure. This suggests that gender alone doesn't predict screen time, but individual variation is more pronounced among females.</p>
             </div>
         </section>
 
         <!-- Visualization 2: Scatter Plot (Altair) -->
         <section class="visualization">
-            <h2>Visualization 2</h2>
-            <p class="chart-subtitle">Scatter Plot</p>
+            <h2>Screen Time Shows Weak Relationship with Sleep Duration, But Quality Suffers</h2>
+            <p class="chart-subtitle">Relationship between daily screen time and sleep duration, colored by sleep quality</p>
+            <p class="narrative-link">
+                Having established baseline screen time patterns, we now explore how digital habits intersect with sleep—a critical component of mental well-being. This analysis reveals whether screen time directly impacts sleep duration or quality.
+            </p>
             <div id="vis2" class="chart-container"></div>
-            <div class="takeaway">
-                <h3>Key Takeaway</h3>
-                <p>
-                    There is no strong linear relationship—sleep duration varies widely across all screen-time levels. However, lower sleep quality appears slightly more common among heavier screen users.
-                </p>
+            <div class="interpretive-caption">
+                <p><strong>Key Insight:</strong> Sleep duration shows wide variation regardless of screen time levels, indicating that screen exposure doesn't strongly predict how long people sleep. However, points with lower sleep quality (darker purple/yellow) cluster more frequently among higher screen-time users—suggesting that while screen time may not reduce sleep hours, it appears to degrade sleep quality, which could contribute to mental health challenges. The color gradient (purple to yellow) represents sleep quality from low (0) to high (10), making it easy to spot patterns.</p>
             </div>
         </section>
 
         <!-- Visualization 3: Grouped Bar Chart (D3) -->
         <section class="visualization">
-            <h2>Visualization 3</h2>
-            <p class="chart-subtitle">Grouped Bar Chart</p>
+            <h2>Social Media Usage Drives Depression Scores Upward, Especially in Urban Areas</h2>
+            <p class="chart-subtitle">Average weekly depression scores grouped by social media usage bins and location type</p>
+            <p class="narrative-link">
+                While general screen time shows limited impact on sleep, we now investigate a more specific digital behavior: social media usage. This visualization examines how social media consumption relates to depression scores across different environments, revealing whether location amplifies or mitigates these effects.
+            </p>
             <div id="vis3" class="chart-container"></div>
             <div class="controls" id="scatter-controls">
                 <label>Filter by Location:</label>
@@ -87,31 +90,31 @@
                     <option value="Rural">Rural</option>
                 </select>
             </div>
-            <div class="takeaway">
-                <h3>Key Takeaway</h3>
-                <p>
-                    Higher social media usage corresponds with higher depression scores across all locations, with urban participants showing the most pronounced increases. Error bars indicate variability within groups, showing consistent trends despite individual differences.
-                </p>
+            <div class="interpretive-caption">
+                <p><strong>Key Insight:</strong> Depression scores consistently rise as social media usage increases across all location types, demonstrating a clear dose-response relationship. Urban participants show the steepest increases—with depression scores climbing from approximately 8-10 at low usage (0-2 hrs) to 15-18 at high usage (4-6 hrs). This spatial clustering suggests that urban environments may amplify the negative mental health impacts of social media, possibly due to increased social comparison pressures or digital saturation. Error bars show substantial variability within groups, indicating that while the trend is clear, individual responses vary significantly.</p>
             </div>
         </section>
 
         <!-- Visualization 4: Heatmap (Altair) -->
         <section class="visualization">
-            <h2>Visualization 4</h2>
-            <p class="chart-subtitle">Heatmap</p>
+            <h2>Moderate Screen Time Dominates, But Extreme Usage Doesn't Predict Mental Health Extremes</h2>
+            <p class="chart-subtitle">Distribution of participants across screen time and mental health score ranges</p>
+            <p class="narrative-link">
+                After identifying the social media-depression connection, we zoom out to examine the broader relationship between total screen time and overall mental health scores. This density visualization reveals where most participants cluster and whether extreme screen usage correlates with mental health extremes.
+            </p>
             <div id="vis4" class="chart-container"></div>
-            <div class="takeaway">
-                <h3>Key Takeaway</h3>
-                <p>
-                    The highest concentration of participants falls between 4–8 hours of screen time and moderate mental health scores. The heatmap suggests that extreme screen time does not directly predict very low or very high mental health scores—indicating a more complex relationship.
-                </p>
+            <div class="interpretive-caption">
+                <p><strong>Key Insight:</strong> The darkest cells (representing highest participant concentration) cluster in the 4-8 hour screen time range with moderate mental health scores (30-70), revealing that most people fall into moderate ranges for both variables. Critically, very high screen time (10+ hours) doesn't strongly predict very low mental health scores—suggesting that while excessive screen time may contribute to mental health challenges, it's not determinative. The relationship appears more nuanced than a simple linear correlation, with individual factors likely playing significant roles.</p>
             </div>
         </section>
 
         <!-- Visualization 5: Grouped Bar Chart (D3) -->
         <section class="visualization">
-            <h2>Visualization 5</h2>
-            <p class="chart-subtitle">Grouped Bar Chart</p>
+            <h2>Mental Health Scores Remain Remarkably Stable Across Locations and Genders</h2>
+            <p class="chart-subtitle">Average mental health scores grouped by location type and gender</p>
+            <p class="narrative-link">
+                Our final visualization synthesizes the demographic and environmental factors we've explored. By examining mental health scores across the intersection of location and gender, we can assess whether these demographic characteristics meaningfully predict mental well-being outcomes.
+            </p>
             <div id="vis5" class="chart-container"></div>
             <div class="controls" id="grouped-controls">
                 <label>Filter by Gender:</label>
@@ -122,11 +125,8 @@
                     <option value="Other">Other</option>
                 </select>
             </div>
-            <div class="takeaway">
-                <h3>Key Takeaway</h3>
-                <p>
-                    Overall mental health scores are fairly consistent, ranging from about 49 to 51 across all regions and genders. There is a slight dip in the urban male group, but the differences are small—suggesting location alone doesn't strongly determine mental well-being.
-                </p>
+            <div class="interpretive-caption">
+                <p><strong>Key Insight:</strong> Mental health scores cluster tightly between 49-51 across nearly all location-gender combinations, demonstrating remarkable stability. The only notable deviation is urban males, who show a slight dip to approximately 48—aligning with our earlier finding that urban environments amplify negative mental health impacts. However, the overall consistency suggests that neither location nor gender alone strongly determines mental health outcomes. This reinforces that digital behaviors (like social media usage) may be more predictive than demographic characteristics, pointing to modifiable risk factors rather than fixed demographic destinies.</p>
             </div>
         </section>
 

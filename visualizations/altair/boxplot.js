@@ -21,12 +21,22 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                 "field": "Gender",
                 "type": "ordinal",
                 "sort": genders,
-                "title": "Gender"
+                "title": "Gender",
+                "axis": {
+                    "titleFontSize": 15,
+                    "labelFontSize": 13,
+                    "titleFontWeight": "bold"
+                }
             },
             "y": {
                 "field": "Screen Time",
                 "type": "quantitative",
-                "title": "Daily Screen Time (hours)"
+                "title": "Daily Screen Time (hours)",
+                "axis": {
+                    "titleFontSize": 15,
+                    "labelFontSize": 13,
+                    "titleFontWeight": "bold"
+                }
             },
             "color": {
                 "field": "Gender",
@@ -35,14 +45,32 @@ d3.csv('digital_diet_mental_health.csv').then(function(data) {
                     "domain": genders,
                     "range": ["#0072B2", "#E69F00", "#009E73"]
                 },
-                "legend": { "title": "Gender" }
+                "legend": { 
+                    "title": "Gender",
+                    "titleFontSize": 14,
+                    "labelFontSize": 13,
+                    "titleFontWeight": "bold"
+                }
             }
         },
-        "width": 500,
-        "height": 400,
+        "width": 600,
+        "height": 450,
         "title": {
             "text": "Screen Time Distribution by Gender",
-            "subtitle": "Distribution of daily screen time hours across gender groups"
+            "subtitle": "Distribution of daily screen time hours across gender groups",
+            "fontSize": 18,
+            "subtitleFontSize": 14,
+            "fontWeight": "bold"
+        },
+        "config": {
+            "axis": {
+                "labelFontSize": 13,
+                "titleFontSize": 15
+            },
+            "legend": {
+                "labelFontSize": 13,
+                "titleFontSize": 14
+            }
         }
     };
     

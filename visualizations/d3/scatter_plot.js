@@ -41,11 +41,11 @@
             .attr('class', 'tooltip')
             .style('opacity', 0);
         
-        // Colorblind-safe color palette (Okabe-Ito inspired)
-        // Using distinct colors that work for colorblind users
+        // Colorblind-safe color palette for location (Okabe-Ito inspired)
+        // Using distinct colors that work for all colorblind types
         const colorScale = d3.scaleOrdinal()
             .domain(['Urban', 'Suburban', 'Rural'])
-            .range(['#0072B2', '#E69F00', '#009E73']); // Blue, Orange, Green - colorblind safe
+            .range(['#D55E00', '#E69F00', '#F0E442']); // Red-orange, Orange, Yellow - colorblind safe, distinct for location
         
         // Pattern definitions for additional differentiation (colorblind accessibility)
         const patterns = svgRoot.append('defs');
@@ -58,7 +58,7 @@
             .attr('height', 8)
             .append('path')
             .attr('d', 'M 0,8 L 8,0')
-            .attr('stroke', '#0072B2')
+            .attr('stroke', '#D55E00')
             .attr('stroke-width', 1.5);
         
         // Suburban pattern - horizontal lines
@@ -86,7 +86,7 @@
             .attr('y1', 0)
             .attr('x2', 4)
             .attr('y2', 8)
-            .attr('stroke', '#009E73')
+            .attr('stroke', '#F0E442')
             .attr('stroke-width', 1.5);
         
         // Load data
@@ -162,10 +162,10 @@
                 // Add title and subtitle
                 svg.append('text')
                     .attr('x', width / 2)
-                    .attr('y', -20)
+                    .attr('y', -25)
                     .attr('fill', 'black')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '18px')
+                    .style('font-size', '20px')
                     .style('font-weight', 'bold')
                     .text('Depression Scores by Social Media Usage and Location');
                 
@@ -174,7 +174,7 @@
                     .attr('y', -5)
                     .attr('fill', '#666')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '12px')
+                    .style('font-size', '14px')
                     .style('font-style', 'italic')
                     .text('Average weekly depression scores grouped by social media usage bins and location type');
                 
@@ -189,30 +189,35 @@
                     .call(xAxis)
                     .selectAll('text')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '13px')
+                    .style('font-size', '14px')
+                    .style('font-weight', '500')
                     .attr('dx', '0')
                     .attr('dy', '10');
                 
                 svg.append('text')
                     .attr('x', width / 2)
-                    .attr('y', height + 50)
+                    .attr('y', height + 55)
                     .attr('fill', 'black')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '14px')
+                    .style('font-size', '15px')
+                    .style('font-weight', 'bold')
                     .text('Social Media Usage (hours per day)');
                 
                 // Y-axis
                 svg.append('g')
                     .attr('class', 'y-axis')
-                    .call(yAxis);
+                    .call(yAxis)
+                    .selectAll('text')
+                    .style('font-size', '13px');
                 
                 svg.append('text')
                     .attr('transform', 'rotate(-90)')
-                    .attr('y', -50)
+                    .attr('y', -55)
                     .attr('x', -height / 2)
                     .attr('fill', 'black')
                     .style('text-anchor', 'middle')
-                    .style('font-size', '14px')
+                    .style('font-size', '15px')
+                    .style('font-weight', 'bold')
                     .text('Average Weekly Depression Score');
                 
                 // Draw bars function
@@ -248,7 +253,8 @@
                                 <strong>Social Media Usage:</strong> ${d.bin}<br/>
                                 <strong>Avg Depression Score:</strong> ${d.avgDepression.toFixed(2)}<br/>
                                 <strong>Std Deviation:</strong> ${d.stdDev.toFixed(2)}<br/>
-                                <strong>Sample Size:</strong> ${d.count} participants
+                                <strong>Sample Size:</strong> ${d.count} participants<br/>
+                                <strong>Range:</strong> ${d.min.toFixed(1)} - ${d.max.toFixed(1)}
                             `)
                                 .style('left', (event.pageX + 10) + 'px')
                                 .style('top', (event.pageY - 10) + 'px');
@@ -305,10 +311,21 @@
                             return barHeight > 25 ? yScale(d.avgDepression) - 6 : yScale(d.avgDepression) + 16;
                         })
                         .attr('text-anchor', 'middle')
-                        .style('font-size', '11px')
+                        .style('font-size', '12px')
                         .style('fill', 'black')
                         .style('font-weight', 'bold')
                         .text(d => d.avgDepression.toFixed(1));
+                    
+                    // Highlight top 3 highest depression scores
+                    const sortedData = [...dataToShow].sort((a, b) => b.avgDepression - a.avgDepression);
+                    const top3 = sortedData.slice(0, 3);
+                    barGroups.selectAll('rect')
+                        .attr('stroke-width', d => {
+                            return top3.some(t => t.bin === d.bin && t.location === d.location) ? 3 : 1;
+                        })
+                        .attr('stroke', d => {
+                            return top3.some(t => t.bin === d.bin && t.location === d.location) ? '#1F2937' : '#333';
+                        });
                 }
                 
                 // Initial draw
@@ -321,33 +338,34 @@
                 legend.append('text')
                     .attr('x', 0)
                     .attr('y', 0)
-                    .style('font-size', '15px')
+                    .style('font-size', '16px')
                     .style('font-weight', 'bold')
-                    .text('Location');
+                    .text('Location Type');
                 
                 locations.forEach((location, i) => {
                     const legendItem = legend.append('g')
-                        .attr('transform', `translate(0, ${(i + 1) * 35})`); // Increased spacing from 30 to 35
+                        .attr('transform', `translate(0, ${(i + 1) * 38})`); // Increased spacing
                     
                     // Add colored rectangle (larger)
                     legendItem.append('rect')
-                        .attr('width', 24)
-                        .attr('height', 18)
+                        .attr('width', 26)
+                        .attr('height', 20)
                         .attr('fill', colorScale(location))
                         .attr('stroke', '#333')
-                        .attr('stroke-width', 1.5);
+                        .attr('stroke-width', 2);
                     
                     // Add pattern overlay for additional differentiation
                     legendItem.append('rect')
-                        .attr('width', 24)
-                        .attr('height', 18)
+                        .attr('width', 26)
+                        .attr('height', 20)
                         .attr('fill', `url(#pattern-${location.toLowerCase()})`)
                         .attr('opacity', 0.3);
                     
                     legendItem.append('text')
-                        .attr('x', 30)
-                        .attr('y', 14)
-                        .style('font-size', '13px')
+                        .attr('x', 32)
+                        .attr('y', 15)
+                        .style('font-size', '14px')
+                        .style('font-weight', '500')
                         .text(location);
                 });
                 
